@@ -113,29 +113,89 @@ public class MainActivity extends AppCompatActivity {
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //operator="\\+";
+                String s= (String) textViewHistory.getText();
+                if(!checkClickOperator) {
+
+                  String[] temp=s.split(operator);
+
+                  Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
+                          operator);
+
+                  textViewHistory.setText(resultNumber+"+");
+                }
+                else {
+                    checkClickOperator=false;
+                    textViewHistory.setText(s+"+");
+                }
                 operator="\\+";
-                textViewHistory.setText(textViewHistory.getText()+"+");
             }
         });
         buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //operator="-";
+                String s= (String) textViewHistory.getText();
+                if(!checkClickOperator) {
+
+                    String[] temp=s.split(operator);
+
+                    Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
+                            operator);
+
+                    textViewHistory.setText(resultNumber+"-");
+                }
+                else{
+                    checkClickOperator=false;
+                    textViewHistory.setText(s+"-");
+                }
                 operator="-";
-                textViewHistory.setText(textViewHistory.getText()+"-");
             }
         });
         buttonMulti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //operator="x";
+
+                String s= (String) textViewHistory.getText();
+                if(!checkClickOperator) {
+
+                    String[] temp=s.split(operator);
+
+                    Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
+                            operator);
+
+                    textViewHistory.setText(resultNumber+"x");
+                }
+                else{
+                    checkClickOperator=false;
+                    textViewHistory.setText(s+"x");
+                }
                 operator="x";
-                textViewHistory.setText(textViewHistory.getText()+"x");
+
             }
         });
         buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //operator="/";
+
+                String s= (String) textViewHistory.getText();
+                if(!checkClickOperator) {
+
+                    String[] temp=s.split(operator);
+
+                    Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
+                            operator);
+                    if(Double.parseDouble(temp[1])!=0)
+                        textViewHistory.setText(resultNumber+"/");
+                }
+                else{
+                    checkClickOperator=false;
+                    textViewHistory.setText(s+"/");
+                }
                 operator="/";
-                textViewHistory.setText(textViewHistory.getText()+"/");
+
             }
         });
 
@@ -143,17 +203,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String s= (String) textViewHistory.getText();
-                String[] temp=s.split(operator);
 
-                //Log.i("tinh",operator);
+                String lastValue = s.substring(s.length()-1);
+                if(Character.isDigit(lastValue.charAt(0))) {
+                    //Log.i("tinh","Vao");
+                    if(s.contains("\\+")) operator="\\+";
+                    else if(s.contains("-")) operator="-";
+                    else if(s.contains("x")) operator="x";
+                    else if(s.contains("/")) operator="/";
 
-                Double first=Double.parseDouble(temp[0]);
-                Double second=Double.parseDouble(temp[1]);
+                    String[] temp=s.split(operator);
 
-                if(operator.equals("\\+")) textViewResult.setText(Double.toString(first+second));
-                else if(operator.equals("-")) textViewResult.setText(Double.toString(first-second));
-                else if(operator.equals("x")) textViewResult.setText(Double.toString(first*second));
-                else if(operator.equals("/") && second!=0) textViewResult.setText(Double.toString(first/second));
+                    Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
+                            operator);
+                    textViewResult.setText(resultNumber+"");
+                }
             }
         });
 
@@ -161,13 +225,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String s= (String) textViewHistory.getText();
+                //Log.i("tinh",s);
 
-                if(!s.contains(".")) {
-                    if(s.isEmpty() || s.charAt(s.length()-1)=='+' || s.charAt(s.length()-1)=='-' || s.charAt(s.length()-1)=='x'
-                            || s.charAt(s.length()-1)=='/') s=s+"0.";
-                    else s=s+".";
-                    Log.i("tinh",s);
-                    textViewHistory.setText(s);
+                if(checkDot(operator)) {
+                    String lastValue = "";
+                    if(!s.isEmpty()) lastValue=s.substring(s.length()-1);
+
+                    if(s.isEmpty() || !Character.isDigit(lastValue.charAt(0)))
+                        textViewHistory.setText("0.");
+                    else textViewHistory.setText(s+".");
+
                 }
             }
         });
@@ -175,11 +242,36 @@ public class MainActivity extends AppCompatActivity {
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textViewHistory.setText("");
+                checkClickOperator=true;
                 textViewResult.setText("");
+                textViewHistory.setText("");
+                operator="";
             }
         });
     }
 
+    public Double calculator(Double a, Double b,String operator) {
+        if(operator.equals("\\+")) return a+b;
+        else if(operator.equals("-")) return a-b;
+        else if(operator.equals("/") && b!=0) return a/b;
+        return a*b;
+    }
 
+    public boolean checkDot(String operator) {
+
+        String s= (String) textViewHistory.getText();
+
+        int pos=-1;
+        for(int i=0;i<s.length();i++)
+            if(!Character.isDigit(s.charAt(i))) {
+                pos=i;
+                break;
+            }
+
+        if(pos==-1) return true;
+
+        if(pos<s.length()-2) return true;
+
+        return false;
+    }
 }
