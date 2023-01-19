@@ -119,10 +119,18 @@ public class MainActivity extends AppCompatActivity {
 
                   String[] temp=s.split(operator);
 
-                  Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
-                          operator);
+                  if(Double.parseDouble(temp[1])==0 && operator.equals("/")) {
+                      checkClickOperator=true;
+                      textViewResult.setText("");
+                      textViewHistory.setText("");
+                      operator="";
+                  }
+                  else {
+                      Double resultNumber = calculator(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]),
+                              operator);
 
-                  textViewHistory.setText(resultNumber+"+");
+                      textViewHistory.setText(resultNumber + "+");
+                  }
                 }
                 else {
                     checkClickOperator=false;
@@ -140,10 +148,18 @@ public class MainActivity extends AppCompatActivity {
 
                     String[] temp=s.split(operator);
 
-                    Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
-                            operator);
+                    if(Double.parseDouble(temp[1])==0 && operator.equals("/")) {
+                        checkClickOperator=true;
+                        textViewResult.setText("");
+                        textViewHistory.setText("");
+                        operator="";
+                    }
+                    else {
+                        Double resultNumber = calculator(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]),
+                                operator);
 
-                    textViewHistory.setText(resultNumber+"-");
+                        textViewHistory.setText(resultNumber + "-");
+                    }
                 }
                 else{
                     checkClickOperator=false;
@@ -162,10 +178,18 @@ public class MainActivity extends AppCompatActivity {
 
                     String[] temp=s.split(operator);
 
-                    Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
-                            operator);
+                    if(Double.parseDouble(temp[1])==0 && operator.equals("/")) {
+                        checkClickOperator=true;
+                        textViewResult.setText("");
+                        textViewHistory.setText("");
+                        operator="";
+                    }
+                    else {
+                        Double resultNumber = calculator(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]),
+                                operator);
 
-                    textViewHistory.setText(resultNumber+"x");
+                        textViewHistory.setText(resultNumber + "x");
+                    }
                 }
                 else{
                     checkClickOperator=false;
@@ -185,10 +209,18 @@ public class MainActivity extends AppCompatActivity {
 
                     String[] temp=s.split(operator);
 
-                    Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
-                            operator);
-                    if(Double.parseDouble(temp[1])!=0)
-                        textViewHistory.setText(resultNumber+"/");
+                    if(Double.parseDouble(temp[1])==0) {
+                        checkClickOperator=true;
+                        textViewResult.setText("");
+                        textViewHistory.setText("");
+                        operator="";
+                    }
+                    else {
+                        Double resultNumber = calculator(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]),
+                                operator);
+
+                        textViewHistory.setText(resultNumber + "/");
+                    }
                 }
                 else{
                     checkClickOperator=false;
@@ -214,9 +246,17 @@ public class MainActivity extends AppCompatActivity {
 
                     String[] temp=s.split(operator);
 
-                    Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
-                            operator);
-                    textViewResult.setText(resultNumber+"");
+                    if(Double.parseDouble(temp[1])==0 && operator.equals("/")) {
+                        checkClickOperator=true;
+                        textViewResult.setText("");
+                        textViewHistory.setText("");
+                        operator="";
+                    }
+                    else {
+                        Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
+                                operator);
+                        textViewResult.setText(resultNumber+"");
+                    }
                 }
             }
         });
@@ -230,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                 if(checkDot(operator)) {
                     String lastValue = "";
                     if(!s.isEmpty()) lastValue=s.substring(s.length()-1);
-
+                    Log.i("tinh",lastValue);
                     if(s.isEmpty() || !Character.isDigit(lastValue.charAt(0)))
                         textViewHistory.setText("0.");
                     else textViewHistory.setText(s+".");
@@ -253,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
     public Double calculator(Double a, Double b,String operator) {
         if(operator.equals("\\+")) return a+b;
         else if(operator.equals("-")) return a-b;
-        else if(operator.equals("/") && b!=0) return a/b;
+        else if(operator.equals("/")) return a/b;
         return a*b;
     }
 
@@ -267,10 +307,10 @@ public class MainActivity extends AppCompatActivity {
                 pos=i;
                 break;
             }
-
+        //Log.i("tinh",pos+"");
         if(pos==-1) return true;
 
-        if(pos<s.length()-2) return true;
+        if(pos<s.length()-1) return true;
 
         return false;
     }
