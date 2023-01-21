@@ -120,10 +120,14 @@ public class MainActivity extends AppCompatActivity {
                   String[] temp=s.split(operator);
 
                   if(Double.parseDouble(temp[1])==0 && operator.equals("/")) {
-                      checkClickOperator=true;
-                      textViewResult.setText("");
-                      textViewHistory.setText("");
-                      operator="";
+                      //                checkClickOperator=true;
+//                textViewResult.setText("");
+//                textViewHistory.setText("");
+//                operator="";
+
+                      reset();
+                      Log.i("tinh",operator);
+
                   }
                   else {
                       Double resultNumber = calculator(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]),
@@ -149,10 +153,13 @@ public class MainActivity extends AppCompatActivity {
                     String[] temp=s.split(operator);
 
                     if(Double.parseDouble(temp[1])==0 && operator.equals("/")) {
-                        checkClickOperator=true;
-                        textViewResult.setText("");
-                        textViewHistory.setText("");
-                        operator="";
+                        //                checkClickOperator=true;
+//                textViewResult.setText("");
+//                textViewHistory.setText("");
+//                operator="";
+
+                        reset();
+                        Log.i("tinh",operator);
                     }
                     else {
                         Double resultNumber = calculator(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]),
@@ -179,10 +186,13 @@ public class MainActivity extends AppCompatActivity {
                     String[] temp=s.split(operator);
 
                     if(Double.parseDouble(temp[1])==0 && operator.equals("/")) {
-                        checkClickOperator=true;
-                        textViewResult.setText("");
-                        textViewHistory.setText("");
-                        operator="";
+                        //                checkClickOperator=true;
+//                textViewResult.setText("");
+//                textViewHistory.setText("");
+//                operator="";
+
+                        reset();
+                        Log.i("tinh",operator);
                     }
                     else {
                         Double resultNumber = calculator(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]),
@@ -210,10 +220,13 @@ public class MainActivity extends AppCompatActivity {
                     String[] temp=s.split(operator);
 
                     if(Double.parseDouble(temp[1])==0) {
-                        checkClickOperator=true;
-                        textViewResult.setText("");
-                        textViewHistory.setText("");
-                        operator="";
+                        //                checkClickOperator=true;
+//                textViewResult.setText("");
+//                textViewHistory.setText("");
+//                operator="";
+
+                        reset();
+                        Log.i("tinh",operator);
                     }
                     else {
                         Double resultNumber = calculator(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]),
@@ -247,10 +260,12 @@ public class MainActivity extends AppCompatActivity {
                     String[] temp=s.split(operator);
 
                     if(Double.parseDouble(temp[1])==0 && operator.equals("/")) {
-                        checkClickOperator=true;
-                        textViewResult.setText("");
-                        textViewHistory.setText("");
-                        operator="";
+                        //                checkClickOperator=true;
+//                textViewResult.setText("");
+//                textViewHistory.setText("");
+//                operator="";
+
+                        reset();
                     }
                     else {
                         Double resultNumber = calculator(Double.parseDouble(temp[0]),Double.parseDouble(temp[1]),
@@ -282,12 +297,21 @@ public class MainActivity extends AppCompatActivity {
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkClickOperator=true;
-                textViewResult.setText("");
-                textViewHistory.setText("");
-                operator="";
+//                checkClickOperator=true;
+//                textViewResult.setText("");
+//                textViewHistory.setText("");
+//                operator="";
+
+                reset();
             }
         });
+    }
+
+    public void reset() {
+        checkClickOperator=true;
+        textViewResult.setText("");
+        textViewHistory.setText("");
+        operator="";
     }
 
     public Double calculator(Double a, Double b,String operator) {
