@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.btvn_fragment_navbar.MainActivity;
 import com.example.btvn_fragment_navbar.R;
+import com.example.btvn_fragment_navbar.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
@@ -40,19 +42,21 @@ public class HomeFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
 
-    View view;
+//    View view;
 
-    Button btn1,btn2,btn3,btn4;
-    TextView tvName1,tvName2,tvName3,tvName4;
+//    Button btn1,btn2,btn3,btn4;
+//    TextView tvName1,tvName2,tvName3,tvName4;
     String textClick="";
 
+    FragmentHomeBinding binding;
     ISendDataListener mISendDataListener;
+
 
     public interface ISendDataListener {
         void sendData(String data);
     }
 
-    MainActivity mainActivity = (MainActivity) getActivity();
+    ///MainActivity mainActivity = (MainActivity) getActivity();
 
 
     @Override
@@ -66,52 +70,52 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_home, container, false);
+        binding= DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 
-        btn1=view.findViewById(R.id.btnAdd1);
-        btn2=view.findViewById(R.id.btnAdd2);
-        btn3=view.findViewById(R.id.btnAdd3);
-        btn4=view.findViewById(R.id.btnAdd4);
+//        btn1=view.findViewById(R.id.btnAdd1);
+//        btn2=view.findViewById(R.id.btnAdd2);
+//        btn3=view.findViewById(R.id.btnAdd3);
+//        btn4=view.findViewById(R.id.btnAdd4);
+//
+//        tvName1=view.findViewById(R.id.tvName1);
+//        tvName2=view.findViewById(R.id.tvName2);
+//        tvName3=view.findViewById(R.id.tvName3);
+//        tvName4=view.findViewById(R.id.tvName4);
 
-        tvName1=view.findViewById(R.id.tvName1);
-        tvName2=view.findViewById(R.id.tvName2);
-        tvName3=view.findViewById(R.id.tvName3);
-        tvName4=view.findViewById(R.id.tvName4);
-
-        btn1.setOnClickListener(new View.OnClickListener() {
+        binding.btnAdd1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textClick+=tvName1.getText().toString().trim();
+                textClick+=binding.tvName1.getText().toString().trim();
                 sendDatatoCartFragment();
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
+        binding.btnAdd2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textClick+=tvName2.getText().toString().trim();
+                textClick+=binding.tvName2.getText().toString().trim();
                 sendDatatoCartFragment();
             }
         });
 
-        btn3.setOnClickListener(new View.OnClickListener() {
+        binding.btnAdd3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textClick+=tvName3.getText().toString().trim();
+                textClick+=binding.tvName3.getText().toString().trim();
                 sendDatatoCartFragment();
             }
         });
 
-        btn4.setOnClickListener(new View.OnClickListener() {
+        binding.btnAdd4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textClick+=tvName4.getText().toString().trim();
+                textClick+=binding.tvName4.getText().toString().trim();
                 sendDatatoCartFragment();
             }
         });
 
 
-        return view;
+        return binding.getRoot();
     }
 
     void sendDatatoCartFragment() {

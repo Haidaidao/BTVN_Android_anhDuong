@@ -2,6 +2,7 @@ package com.example.btvn_fragment_navbar.Fragment;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -11,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.btvn_fragment_navbar.R;
-
+import com.example.btvn_fragment_navbar.databinding.FragmentCartBinding;
 
 
 public class CartFragment extends Fragment {
@@ -29,29 +30,35 @@ public class CartFragment extends Fragment {
         // Required empty public constructor
     }
 
-    View view;
+
+    static String dataReceive="";
+
     TextView tv;
-    public static String dataReceive="";
+
+    FragmentCartBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_cart, container, false);
+        binding= DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
 
-        tv=view.findViewById(R.id.tv);
-        Log.i("data","-->" + dataReceive);
-        tv.setText(dataReceive);
-        return view;
+
+        binding.tv.setText(dataReceive);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Log.i("data","-->" + dataReceive);
+        binding.tv.setText(dataReceive);
     }
 
     public void receiveDatafromHomeFragment(String data) {
 
         dataReceive=data;
-        //tv=view.findViewById(R.id.tv);
-        //Log.i("data","-->" + dataReceive);
-        //tv.setText(data);
-
+        Log.i("data","-->" + dataReceive);
     }
 
     String getData() {
