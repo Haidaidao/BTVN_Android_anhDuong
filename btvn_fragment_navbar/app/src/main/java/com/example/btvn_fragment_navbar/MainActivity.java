@@ -82,6 +82,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.ISen
         CartFragment cartFragment= new CartFragment();
         Log.i("data","==="+data);
         cartFragment.receiveDatafromHomeFragment(data);
-        //cartFragment.dataReceive=data;
+        //cartFragme                                                                                                                                                                                                                                                                                                                                                                                                                                                              nt.dataReceive=data;
     }
 }
